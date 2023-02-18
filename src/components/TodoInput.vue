@@ -2,19 +2,33 @@
     <div class="input">
     <input v-model="todo" type="text" placeholder="Добавить новый элемент"/>
     <button @click="addtodo(id++)" class="btn_add">Добавить</button>
-<div class="line" v-for="todo in todos" :key="todo.id">
+<div class="todo" v-for="todo in todos" :key="todo.id">
 <input @click="count++" v-model="todo.iscomplete" id="todo__check" type="checkbox"/>
 <span class="todo_text" :class="{ todo__text_ishow: todo.iscomplete }">{{ todo.text }}</span>
 </div>
+<div class="footer">
+<div class="line"></div>
+  <p>Дело завершено: {{ count }} / {{ todos.length }}</p>
+  <p class="btn_footer" @click="removetodo(id--,count=0)">Очистить</p>
     </div>
+  </div>
 </template>
 <style>
 #todo__check:hover + .todo_text {
   color: #2D70FD;
   cursor: pointer;
 }
+.footer{
+    
+}
 .line{
+    height: 0;
+    width: 100%;
+    border: 1px solid #EEEEEE;
+}
+.todo{
     margin-top: 24px;
+  
 }
 #todo__check{
     width: 32px;
