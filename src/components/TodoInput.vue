@@ -1,12 +1,40 @@
 <template>
     <div class="input">
-    <input type="text" placeholder="Добавить новый элемент"/>
-    <button class="btn_add">Добавить</button>
-
+    <input v-model="todo" type="text" placeholder="Добавить новый элемент"/>
+    <button @click="addtodo(id++)" class="btn_add">Добавить</button>
+<div class="line" v-for="todo in todos" :key="todo.id">
+<input @click="count++" v-model="todo.iscomplete" id="todo__check" type="checkbox"/>
+<span class="todo_text" :class="{ todo__text_ishow: todo.iscomplete }">{{ todo.text }}</span>
+</div>
     </div>
 </template>
 <style>
-body{
+#todo__check:hover + .todo_text {
+  color: #2D70FD;
+  cursor: pointer;
+}
+.line{
+    margin-top: 24px;
+}
+#todo__check{
+    width: 32px;
+    height: 32px;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    display: inline-block;
+}
+#todo__check:checked {
+    background-color: #00D8A7;
+}
+.todo__text_ishow{
+  text-decoration: line-through;
+  color: gray;
 }
 .input{
     position: relative;
@@ -44,3 +72,33 @@ z-index: 1;
 cursor: pointer;
 }
 </style>
+<script>
+export default{
+  data () {
+    return {
+      todo: "",
+      todos: [],
+      isdone: false,
+      id: 0,
+      count: 0,
+    };
+  },
+methods: {
+  addtodo() {
+    this.todos.push({
+      id: this.id,
+      text: this.todo,
+      iscomplete: this.isdone,
+    })
+   },
+   removetodo() {
+    this.todos.splice({
+      id: this.id,
+      text: this.todo,
+      iscomplete: this.isdone,
+    });
+   }
+ },
+ 
+}
+</script>
